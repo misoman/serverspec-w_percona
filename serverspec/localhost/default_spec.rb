@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe 'w_percona::default' do
 
+	describe command('apt-key list') do
+  		its(:stdout) { should match /8507EFA5/ }
+	end
+
 	['toolkit', 'xtrabackup', 'xtradb-cluster-56', 'xtradb-cluster-client-5.6', 'xtradb-cluster-common-5.6', 'xtradb-cluster-galera-3', 'xtradb-cluster-galera-3.x', 'xtradb-cluster-server-5.6' ].each do |package|
 		describe package("percona-#{package}") do
 	  	it { should be_installed }
